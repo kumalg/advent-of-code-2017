@@ -2,7 +2,7 @@
 
 namespace Day03 {
     internal class SpiralFor2 {
-        public static int ComputeStepsCount(int number) {
+        public static int ComputeNextNumber(int number) {
             var ringNumber = (int)Math.Ceiling(Math.Sqrt(number));
             var matrix = new int?[ringNumber, ringNumber];
 
