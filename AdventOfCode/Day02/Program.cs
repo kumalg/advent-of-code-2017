@@ -7,8 +7,8 @@ namespace Day02 {
     class Program {
         static void Main(string[] args) {
             var matrix = GetMatrix("input.txt");
-            var result = Checksum.ComputeChecksumFor2(matrix);
-            Console.WriteLine(result);
+            Console.WriteLine($" Part I: {Checksum.ComputeChecksum(matrix)}");
+            Console.WriteLine($"Part II: {Checksum.ComputeChecksumFor2(matrix)}");
             Console.ReadKey();
         }
 

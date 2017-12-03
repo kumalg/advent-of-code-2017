@@ -5,8 +5,8 @@ namespace Day01 {
     class Program {
         static void Main(string[] args) {
             var array = GetArray("input.txt");
-            var result = Captcha.ComputeCaptchaFor2(array);
-            Console.WriteLine(result);
+            Console.WriteLine($" Part I: {Captcha.ComputeCaptcha(array)}");
+            Console.WriteLine($"Part II: {Captcha.ComputeCaptchaFor2(array)}");
             Console.ReadKey();
         }
         static int[] GetArray(string fileName) {
