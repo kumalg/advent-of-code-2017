@@ -1,22 +1,20 @@
 ﻿using System;
 
 namespace Day03 {
-    internal class SpiralFor2 {
+    internal class SpiralPartTwo {
         public static int ComputeNextNumber(int number) {
-            var ringNumber = (int)Math.Ceiling(Math.Sqrt(number));
-            var matrix = new int?[ringNumber, ringNumber];
+            var ring = (int)Math.Ceiling(Math.Sqrt(number));
+            var matrix = new int?[ring, ring];
 
-            var centerIndex = (int)Math.Floor(ringNumber / 2.0);
+            var centerIndex = ring / 2;
 
             matrix[centerIndex, centerIndex] = 1;
             var actualCol = centerIndex;
             var actualRow = centerIndex;
 
-            for (var i = 1; i <= ringNumber; i++) {
+            for (var i = 1; i <= ring; i++) {
                 int actualNumber;
-                var offset = i % 2 != 0
-                    ? 1
-                    : -1;
+                var offset = IsOdd(i) ? 1 : -1;
 
                 for (var j = 0; j < i; j++) {
                     actualRow += offset;
@@ -34,6 +32,10 @@ namespace Day03 {
                 }
             }
             return 0;
+        }
+
+        private static bool IsOdd(int number) {
+            return number % 2 != 0;
         }
 
         private static int ComputeValueInCell(int?[,] matrix, int actualRow, int actualCol) {

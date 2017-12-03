@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Day02 {
     internal class Checksum {
-        public static int ComputeChecksum(IEnumerable<IEnumerable<int>> matrix) {
+        public static int ComputeChecksumPartOne(IEnumerable<IEnumerable<int>> matrix) {
             return matrix.Select(i => i.Max() - i.Min()).Sum();
         }
 
-        public static int ComputeChecksumFor2(IEnumerable<IEnumerable<int>> matrix) {
+        public static int ComputeChecksumPartTwo(IEnumerable<IEnumerable<int>> matrix) {
             var result = 0;
             foreach (var row in matrix) {
                 var rowResult = 0;

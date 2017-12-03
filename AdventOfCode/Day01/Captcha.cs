@@ -2,7 +2,7 @@
 
 namespace Day01 {
     internal class Captcha {
-        public static int ComputeCaptcha(int[] array) {
+        public static int ComputeCaptchaPartOne(int[] array) {
             var result = 0;
             for (var i = 0; i < array.Length - 1;) {
                 if (array[i] == array[++i])
@@ -12,7 +12,7 @@ namespace Day01 {
                 result += array.First();
             return result;
         }
-        public static int ComputeCaptchaFor2(int[] array) {
+        public static int ComputeCaptchaPartTwo(int[] array) {
             var result = 0;
             var halfWay = array.Length / 2;
             for (var i = 0; i < halfWay; i++) {
