@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Day03 {
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine(Spiral.ComputeStepsCount(277678));
+            Console.WriteLine(SpiralFor2.ComputeStepsCount(277678));
             Console.ReadKey();
         }
     }
