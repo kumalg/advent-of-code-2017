@@ -14,33 +14,23 @@ namespace Day03 {
 
             for (var i = 1; i <= ringNumber; i++) {
                 int actualNumber;
-                if (i % 2 != 0) {
-                    for (var j = 0; j < i; j++) {
-                        actualNumber = ComputeValueInCell(matrix, ++actualRow, actualCol);
-                        matrix[actualRow, actualCol] = actualNumber;
-                        if (actualNumber > number)
-                            return actualNumber;
-                    }
-                    for (var j = 0; j < i; j++) {
-                        actualNumber = ComputeValueInCell(matrix, actualRow, ++actualCol);
-                        matrix[actualRow, actualCol] = actualNumber;
-                        if (actualNumber > number)
-                            return actualNumber;
-                    }
+                var offset = i % 2 != 0
+                    ? 1
+                    : -1;
+
+                for (var j = 0; j < i; j++) {
+                    actualRow += offset;
+                    actualNumber = ComputeValueInCell(matrix, actualRow, actualCol);
+                    matrix[actualRow, actualCol] = actualNumber;
+                    if (actualNumber > number)
+                        return actualNumber;
                 }
-                else {
-                    for (var j = 0; j < i; j++) {
-                        actualNumber = ComputeValueInCell(matrix, --actualRow, actualCol);
-                        matrix[actualRow, actualCol] = actualNumber;
-                        if (actualNumber > number)
-                            return actualNumber;
-                    }
-                    for (var j = 0; j < i; j++) {
-                        actualNumber = ComputeValueInCell(matrix, actualRow, --actualCol);
-                        matrix[actualRow, actualCol] = actualNumber;
-                        if (actualNumber > number)
-                            return actualNumber;
-                    }
+                for (var j = 0; j < i; j++) {
+                    actualCol += offset;
+                    actualNumber = ComputeValueInCell(matrix, actualRow, actualCol);
+                    matrix[actualRow, actualCol] = actualNumber;
+                    if (actualNumber > number)
+                        return actualNumber;
                 }
             }
             return 0;
