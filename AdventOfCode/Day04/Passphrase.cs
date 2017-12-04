@@ -8,7 +8,9 @@ namespace Day04 {
         }
 
         public static int CountValidPassphrasesForTwo(IEnumerable<IEnumerable<string>> list) {
-            return list.Count(sublist => sublist.Select(word => new string(word.ToCharArray().OrderBy(letter => letter).ToArray())).All(new HashSet<string>().Add));
+            return list.Count(sublist => sublist.Select(word => new string(word.OrderBy(letter => letter)
+                                                                               .ToArray()))
+                                                .All(new HashSet<string>().Add));
         }
     }
 }
