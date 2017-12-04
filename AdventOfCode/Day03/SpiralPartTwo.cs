@@ -27,9 +27,7 @@ namespace Day03 {
             return 0;
         }
 
-        private static bool IsOdd(int number) {
-            return number % 2 != 0;
-        }
+        private static bool IsOdd(int number) => number % 2 != 0;
 
         private static int ComputeValueInCell(int[,] matrix, int row, int col) {
             var result = 0;
