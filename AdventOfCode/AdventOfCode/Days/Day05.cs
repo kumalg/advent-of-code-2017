@@ -48,53 +48,43 @@ namespace AdventOfCode.Days {
     public class Day05 {
         public static void Run() {
             var instructions = GetInstructions("../../Inputs/day05.txt");
-            
-            Console.WriteLine($" Part I: {Instructions.CountStepsForOne(instructions).Key}");
-            Console.WriteLine($"Part II: {Instructions.CountStepsForTwo(instructions).Key}");
+
+            Console.WriteLine($" Part I: {CountStepsForOne(instructions).Key}");
+            Console.WriteLine($"Part II: {CountStepsForTwo(instructions).Key}");
             Console.ReadKey();
         }
 
-        static IEnumerable<int> GetInstructions(string fileName) =>
+        private static IEnumerable<int> GetInstructions(string fileName) =>
             File.ReadAllText(fileName)
                 .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse);
 
+        public static KeyValuePair<int, int[]> CountStepsForOne(IEnumerable<int> input) {
+            var list = input.ToArray();
+            var steps = 0;
+            var positon = 0;
 
-        public class Instructions {
-            public static KeyValuePair<int, List<int>> CountStepsForOne(IEnumerable<int> input) {
-                var list = input.ToList();
-                var steps = 0;
-                var positon = 0;
-
-                while (positon < list.Count) {
-                    var tempPos = positon;
-                    positon += list.ElementAt(positon);
-                    list[tempPos] += 1;
-                    steps++;
-                }
-
-                return new KeyValuePair<int, List<int>>(steps, list);
+            while (positon < list.Length) {
+                positon += list[positon]++;
+                steps++;
             }
 
-            public static KeyValuePair<int, List<int>> CountStepsForTwo(IEnumerable<int> input) {
-                var list = input.ToList();
-                var steps = 0;
-                var positon = 0;
+            return new KeyValuePair<int, int[]>(steps, list);
+        }
 
-                while (positon < list.Count) {
-                    var tempPos = positon;
-                    positon += list.ElementAt(positon);
+        public static KeyValuePair<int, int[]> CountStepsForTwo(IEnumerable<int> input) {
+            var list = input.ToArray();
+            var steps = 0;
+            var positon = 0;
 
-                    if (list[tempPos] <= 0)
-                        list[tempPos] += 1;
-                    else
-                        list[tempPos] += Math.Abs(list[tempPos]) > 2 ? -1 : 1;
-
-                    steps++;
-                }
-
-                return new KeyValuePair<int, List<int>>(steps, list);
+            while (positon < list.Length) {
+                var tempPos = positon;
+                positon += list[positon];
+                list[tempPos] += list[tempPos] > 2 ? -1 : 1;
+                steps++;
             }
+
+            return new KeyValuePair<int, int[]>(steps, list);
         }
     }
 }
