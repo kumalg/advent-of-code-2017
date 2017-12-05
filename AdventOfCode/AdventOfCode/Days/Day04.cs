@@ -46,28 +46,12 @@ namespace AdventOfCode.Days {
         }
 
         static IEnumerable<IEnumerable<string>> GetMatrix(string fileName) {
-            var matrix = new List<List<string>>();
-            try {
-                using (var sr = new StreamReader(fileName)) {
-                    try {
-                        var line = sr.ReadLine();
-                        while (line != null) {
-                            var lineArray = Regex.Split(line, @"\s+");
-                            matrix.Add(lineArray.ToList());
-                            line = sr.ReadLine();
-                        }
-                    }
-                    catch (Exception e) {
-                        Console.WriteLine(e.Message);
-                        Console.ReadKey();
-                    }
-                }
+            using (var streamReader = File.OpenText(fileName)) {
+                return streamReader
+                    .ReadToEnd()
+                    .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                    .Select(line => Regex.Split(line, @"\s+"));
             }
-            catch (Exception e) {
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
-            }
-            return matrix;
         }
 
         public class Passphrase {

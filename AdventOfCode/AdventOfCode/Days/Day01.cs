@@ -55,27 +55,12 @@ namespace AdventOfCode.Days {
         }
 
         static int[] GetArray(string fileName) {
-            int[] array = null;
-            try {
-                using (var sr = new StreamReader(fileName)) {
-                    try {
-                        var line = sr.ReadLine();
-                        var tokens = line.ToCharArray();
-                        array = Array.ConvertAll(tokens, c => (int)char.GetNumericValue(c));
-                    }
-                    catch (Exception e) {
-                        Console.WriteLine(e.Message);
-                        Console.ReadKey();
-                    }
-                }
+            using (var streamReader = File.OpenText(fileName)) {
+                return Array.ConvertAll(streamReader.ReadToEnd().ToCharArray(),
+                    c => (int)char.GetNumericValue(c));
             }
-            catch (Exception e) {
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
-            }
-            return array;
         }
-
+        
         public class Captcha {
             public static int ComputeCaptchaPartOne(int[] array) {
                 var result = 0;

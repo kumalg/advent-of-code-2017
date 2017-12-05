@@ -54,32 +54,17 @@ namespace AdventOfCode.Days {
             Console.ReadKey();
         }
 
-        static List<int> GetInstructions(string fileName) {
-            var list = new List<int>();
-            try {
-                using (var sr = new StreamReader(fileName)) {
-                    try {
-                        var line = sr.ReadLine();
-                        while (line != null) {
-                            list.Add(int.Parse(line));
-                            line = sr.ReadLine();
-                        }
-                    }
-                    catch (Exception e) {
-                        Console.WriteLine(e.Message);
-                        Console.ReadKey();
-                    }
-                }
+        static IEnumerable<int> GetInstructions(string fileName) {
+            using (var streamReader = File.OpenText(fileName)) {
+                return streamReader
+                    .ReadToEnd()
+                    .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse);
             }
-            catch (Exception e) {
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
-            }
-            return list;
         }
 
         public class Instructions {
-            public static KeyValuePair<int, List<int>> CountStepsForOne(List<int> input) {
+            public static KeyValuePair<int, List<int>> CountStepsForOne(IEnumerable<int> input) {
                 var list = input.ToList();
                 var steps = 0;
                 var positon = 0;
@@ -94,7 +79,7 @@ namespace AdventOfCode.Days {
                 return new KeyValuePair<int, List<int>>(steps, list);
             }
 
-            public static KeyValuePair<int, List<int>> CountStepsForTwo(List<int> input) {
+            public static KeyValuePair<int, List<int>> CountStepsForTwo(IEnumerable<int> input) {
                 var list = input.ToList();
                 var steps = 0;
                 var positon = 0;
