@@ -45,14 +45,10 @@ namespace AdventOfCode.Days {
             Console.ReadKey();
         }
 
-        static IEnumerable<IEnumerable<string>> GetMatrix(string fileName) {
-            using (var streamReader = File.OpenText(fileName)) {
-                return streamReader
-                    .ReadToEnd()
-                    .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                    .Select(line => Regex.Split(line, @"\s+"));
-            }
-        }
+        static IEnumerable<IEnumerable<string>> GetMatrix(string fileName) =>
+            File.ReadAllText(fileName)
+                .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                .Select(line => Regex.Split(line, @"\s+"));
 
         public class Passphrase {
             public static int CountValidPassphrasesForOne(IEnumerable<IEnumerable<string>> list) {

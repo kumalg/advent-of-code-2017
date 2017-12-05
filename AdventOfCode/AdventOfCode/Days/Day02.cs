@@ -57,15 +57,11 @@ namespace AdventOfCode.Days {
             Console.ReadKey();
         }
 
-        static IEnumerable<IEnumerable<int>> GetMatrix(string fileName) {
-            using (var streamReader = File.OpenText(fileName)) {
-                return streamReader
-                    .ReadToEnd()
-                    .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                    .Select(line => Regex.Split(line, @"\s+"))
-                    .Select(nums => nums.Select(int.Parse));
-            }
-        }
+        static IEnumerable<IEnumerable<int>> GetMatrix(string fileName) =>
+            File.ReadAllText(fileName)
+                .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                .Select(line => Regex.Split(line, @"\s+"))
+                .Select(nums => nums.Select(int.Parse));
 
         public class Checksum {
             public static int ComputeChecksumPartOne(IEnumerable<IEnumerable<int>> matrix) {

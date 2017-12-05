@@ -54,14 +54,11 @@ namespace AdventOfCode.Days {
             Console.ReadKey();
         }
 
-        static IEnumerable<int> GetInstructions(string fileName) {
-            using (var streamReader = File.OpenText(fileName)) {
-                return streamReader
-                    .ReadToEnd()
-                    .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                    .Select(int.Parse);
-            }
-        }
+        static IEnumerable<int> GetInstructions(string fileName) =>
+            File.ReadAllText(fileName)
+                .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse);
+
 
         public class Instructions {
             public static KeyValuePair<int, List<int>> CountStepsForOne(IEnumerable<int> input) {

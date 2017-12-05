@@ -54,12 +54,8 @@ namespace AdventOfCode.Days {
             Console.ReadKey();
         }
 
-        static int[] GetArray(string fileName) {
-            using (var streamReader = File.OpenText(fileName)) {
-                return Array.ConvertAll(streamReader.ReadToEnd().ToCharArray(),
-                    c => (int)char.GetNumericValue(c));
-            }
-        }
+        static int[] GetArray(string fileName) => 
+            Array.ConvertAll(File.ReadAllText(fileName).ToCharArray(), c => (int)char.GetNumericValue(c));
         
         public class Captcha {
             public static int ComputeCaptchaPartOne(int[] array) {
