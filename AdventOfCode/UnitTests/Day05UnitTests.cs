@@ -10,7 +10,7 @@ namespace UnitTests {
             var instructions = new List<int> { 0, 3, 0, 1, -3 };
             var result = Day05.Instructions.CountStepsForOne(instructions).Key;
 
-            Assert.AreEqual(result, 5, "result should be 5 but is " + result);
+            Assert.AreEqual(result, 5, $"result should be {5} but is {result}");
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace UnitTests {
             var instructions = new List<int> { 0, 3, 0, 1, -3 };
             var result = Day05.Instructions.CountStepsForTwo(instructions).Key;
 
-            Assert.AreEqual(result, 10, "result should be 10 but is " + result);
+            Assert.AreEqual(result, 10, $"result should be {10} but is {result}");
         }
 
         [TestMethod]
