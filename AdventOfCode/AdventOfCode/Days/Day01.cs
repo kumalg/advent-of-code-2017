@@ -43,15 +43,17 @@ Your puzzle answer was 1054.
 
 using System;
 using System.IO;
+using System.Linq;
 
-namespace Day01 {
-    class Program {
-        static void Main(string[] args) {
-            var array = GetArray("input.txt");
+namespace AdventOfCode.Days {
+    public class Day01 {
+        public static void Run() {
+            var array = GetArray("../../Inputs/day01.txt");
             Console.WriteLine($" Part I: {Captcha.ComputeCaptchaPartOne(array)}");
             Console.WriteLine($"Part II: {Captcha.ComputeCaptchaPartTwo(array)}");
             Console.ReadKey();
         }
+
         static int[] GetArray(string fileName) {
             int[] array = null;
             try {
@@ -72,6 +74,28 @@ namespace Day01 {
                 Console.ReadKey();
             }
             return array;
+        }
+
+        public class Captcha {
+            public static int ComputeCaptchaPartOne(int[] array) {
+                var result = 0;
+                for (var i = 0; i < array.Length - 1;) {
+                    if (array[i] == array[++i])
+                        result += array[i];
+                }
+                if (array.Last() == array.First())
+                    result += array.First();
+                return result;
+            }
+            public static int ComputeCaptchaPartTwo(int[] array) {
+                var result = 0;
+                var halfWay = array.Length / 2;
+                for (var i = 0; i < halfWay; i++) {
+                    if (array[i] == array[i + halfWay])
+                        result += array[i];
+                }
+                return result * 2;
+            }
         }
     }
 }

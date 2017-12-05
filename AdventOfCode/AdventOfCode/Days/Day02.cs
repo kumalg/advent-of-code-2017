@@ -48,10 +48,10 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Day02 {
-    class Program {
-        static void Main(string[] args) {
-            var matrix = GetMatrix("input.txt");
+namespace AdventOfCode.Days {
+    public class Day02 {
+        public static void Run() {
+            var matrix = GetMatrix("../../Inputs/day02.txt");
             Console.WriteLine($" Part I: {Checksum.ComputeChecksumPartOne(matrix)}");
             Console.WriteLine($"Part II: {Checksum.ComputeChecksumPartTwo(matrix)}");
             Console.ReadKey();
@@ -81,6 +81,31 @@ namespace Day02 {
                 Console.ReadKey();
             }
             return matrix;
+        }
+
+        public class Checksum {
+            public static int ComputeChecksumPartOne(IEnumerable<IEnumerable<int>> matrix) {
+                return matrix.Select(i => i.Max() - i.Min()).Sum();
+            }
+
+            public static int ComputeChecksumPartTwo(IEnumerable<IEnumerable<int>> matrix) {
+                var result = 0;
+                foreach (var row in matrix) {
+                    var rowResult = 0;
+                    var rowSorted = row.OrderByDescending(i => i);
+                    for (var i = 0; i < rowSorted.Count(); i++) {
+                        for (var j = i + 1; j < rowSorted.Count(); j++) {
+                            if (rowSorted.ElementAt(i) % rowSorted.ElementAt(j) != 0) continue;
+                            rowResult = (rowSorted.ElementAt(i) / rowSorted.ElementAt(j));
+                            break;
+                        }
+                        if (rowResult == 0) continue;
+                        result += rowResult;
+                        break;
+                    }
+                }
+                return result;
+            }
         }
     }
 }

@@ -36,10 +36,10 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Day04 {
-    class Program {
-        static void Main(string[] args) {
-            var matrix = GetMatrix("input.txt");
+namespace AdventOfCode.Days {
+    public class Day04 {
+        public static void Run() {
+            var matrix = GetMatrix("../../Inputs/day04.txt");
             Console.WriteLine($" Part I: {Passphrase.CountValidPassphrasesForOne(matrix)}");
             Console.WriteLine($"Part II: {Passphrase.CountValidPassphrasesForTwo(matrix)}");
             Console.ReadKey();
@@ -68,6 +68,18 @@ namespace Day04 {
                 Console.ReadKey();
             }
             return matrix;
+        }
+
+        public class Passphrase {
+            public static int CountValidPassphrasesForOne(IEnumerable<IEnumerable<string>> list) {
+                return list.Count(sublist => sublist.All(new HashSet<string>().Add));
+            }
+
+            public static int CountValidPassphrasesForTwo(IEnumerable<IEnumerable<string>> list) {
+                return list.Count(sublist => sublist.Select(word => new string(word.OrderBy(letter => letter)
+                        .ToArray()))
+                    .All(new HashSet<string>().Add));
+            }
         }
     }
 }

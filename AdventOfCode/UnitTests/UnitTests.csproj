@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Day05\Day05.csproj">
-      <Project>{5d5a2823-96ce-4baa-909e-157656970216}</Project>
-      <Name>Day05</Name>
+    <ProjectReference Include="..\AdventOfCode\AdventOfCode.csproj">
+      <Project>{9db8bec8-55d3-4276-8540-4cbeb5f3fa10}</Project>
+      <Name>AdventOfCode</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -44,9 +44,9 @@ How many steps does it now take to reach the exit?
 Your puzzle answer was 23948711.
 */
 
-namespace Day05 {
-    public class Program {
-        static void Main(string[] args) {
+namespace AdventOfCode.Days {
+    public class Day05 {
+        public static void Run() {
             var instructions = GetInstructions("input.txt");
             
             Console.WriteLine($" Part I: {Instructions.CountStepsForOne(instructions).Key}");
@@ -77,41 +77,42 @@ namespace Day05 {
             }
             return list;
         }
-    }
-    public class Instructions {
-        public static KeyValuePair<int, List<int>> CountStepsForOne(List<int> input) {
-            var list = input.ToList();
-            var steps = 0;
-            var positon = 0;
 
-            while (positon < list.Count) {
-                var tempPos = positon;
-                positon += list.ElementAt(positon);
-                list[tempPos] += 1;
-                steps++;
-            }
+        public class Instructions {
+            public static KeyValuePair<int, List<int>> CountStepsForOne(List<int> input) {
+                var list = input.ToList();
+                var steps = 0;
+                var positon = 0;
 
-            return new KeyValuePair<int, List<int>>(steps, list);
-        }
-
-        public static KeyValuePair<int, List<int>> CountStepsForTwo(List<int> input) {
-            var list = input.ToList();
-            var steps = 0;
-            var positon = 0;
-
-            while (positon < list.Count) {
-                var tempPos = positon;
-                positon += list.ElementAt(positon);
-
-                if (list[tempPos] <= 0)
+                while (positon < list.Count) {
+                    var tempPos = positon;
+                    positon += list.ElementAt(positon);
                     list[tempPos] += 1;
-                else
-                    list[tempPos] += Math.Abs(list[tempPos]) > 2 ? -1 : 1;
+                    steps++;
+                }
 
-                steps++;
+                return new KeyValuePair<int, List<int>>(steps, list);
             }
 
-            return new KeyValuePair<int, List<int>>(steps, list);
+            public static KeyValuePair<int, List<int>> CountStepsForTwo(List<int> input) {
+                var list = input.ToList();
+                var steps = 0;
+                var positon = 0;
+
+                while (positon < list.Count) {
+                    var tempPos = positon;
+                    positon += list.ElementAt(positon);
+
+                    if (list[tempPos] <= 0)
+                        list[tempPos] += 1;
+                    else
+                        list[tempPos] += Math.Abs(list[tempPos]) > 2 ? -1 : 1;
+
+                    steps++;
+                }
+
+                return new KeyValuePair<int, List<int>>(steps, list);
+            }
         }
     }
 }
