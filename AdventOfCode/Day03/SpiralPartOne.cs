@@ -12,9 +12,7 @@ namespace Day03 {
             var halfSteps = ring / 2;
             var maxSteps = halfSteps * 2;
             
-            var steps = maxValueInRing - value;
-            while (steps > maxSteps)
-                steps -= maxSteps;
+            var steps = (maxValueInRing - value) % maxSteps;
 
             return halfSteps + Math.Abs(steps - halfSteps);
         }
