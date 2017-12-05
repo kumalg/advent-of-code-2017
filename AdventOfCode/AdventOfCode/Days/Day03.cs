@@ -48,7 +48,7 @@ Your puzzle answer was 279138.
 using System;
 
 namespace AdventOfCode.Days {
-    class Day03 {
+    public class Day03 {
         public static void Run() {
             Console.WriteLine($" Part I: {Spiral.CountSteps(277678)}");
             Console.WriteLine($"Part II: {Spiral.ComputeNextNumber(277678)}");

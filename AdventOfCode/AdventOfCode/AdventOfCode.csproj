@@ -53,8 +53,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Inputs\" />
+    <Content Include="Inputs\day01.txt" />
+    <Content Include="Inputs\day02.txt" />
+    <Content Include="Inputs\day04.txt" />
+    <Content Include="Inputs\day05.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
