@@ -43,42 +43,16 @@ Your puzzle answer was 1086.
 namespace AdventOfCode.Days {
     public class Day06 {
         public static void Run() {
-            var blocks = GetInstructions("../../Inputs/day06.txt");
-            //blocks = new List<int> { 0, 2, 7, 0 };
-
-            Console.WriteLine($" Part I: {CountStepsForOne(blocks).Key}");
-            Console.WriteLine($"Part II: {CountStepsForTwo(blocks).Key}");
+            var blocks = Regex.Split(File.ReadAllText("../../Inputs/day06.txt"), @"\t+").Select(int.Parse);
+            var result = CountSteps(blocks);
+            Console.WriteLine($" Part I: {result.Item1}");
+            Console.WriteLine($"Part II: {result.Item1 - result.Item2}");
             Console.ReadKey();
-        }
-
-        private static IEnumerable<int> GetInstructions(string fileName) =>
-            Regex.Split(File.ReadAllText(fileName), @"\t+").Select(int.Parse);
-
-        public static KeyValuePair<int, int[]> CountStepsForOne(IEnumerable<int> input) {
-            var list = input.ToArray();
-            int steps = 0;
-            var receivedList = new List<IEnumerable<int>>();
-
-            do {
-                receivedList.Add(list.ToList());
-                var maxValue = list.Max();
-                var maxIndex = Array.IndexOf(list, maxValue);
-
-                list[maxIndex] = 0;
-
-                for (var i = 0; i < maxValue; i++) {
-                    var nextIndex = (maxIndex + i + 1) % list.Length;
-                    list[nextIndex]++;
-                }
-                steps++;
-            } while (!CheckIfSetContainsList(receivedList, list));
-
-            return new KeyValuePair<int, int[]>(steps, list);
         }
 
         private static bool CheckIfSetContainsList(IEnumerable<IEnumerable<int>> set, IEnumerable<int> list) => set.Any(i => i.SequenceEqual(list));
 
-        public static KeyValuePair<int, int[]> CountStepsForTwo(IEnumerable<int> input) {
+        public static (int, int) CountSteps(IEnumerable<int> input) {
             var list = input.ToArray();
             int steps = 0;
             var receivedList = new List<IEnumerable<int>>();
@@ -87,19 +61,14 @@ namespace AdventOfCode.Days {
                 receivedList.Add(list.ToList());
                 var maxValue = list.Max();
                 var maxIndex = Array.IndexOf(list, maxValue);
-
                 list[maxIndex] = 0;
-
-                for (var i = 0; i < maxValue; i++) {
-                    var nextIndex = (maxIndex + i + 1) % list.Length;
-                    list[nextIndex]++;
-                }
+                for (var i = 1; i <= maxValue; i++)
+                    list[(maxIndex + i) % list.Length]++;
                 steps++;
             } while (!CheckIfSetContainsList(receivedList, list));
 
-            var count = receivedList.TakeWhile(listt => !listt.SequenceEqual(list)).Count();
-
-            return new KeyValuePair<int, int[]>(receivedList.Count - count, list);
+            var index = receivedList.TakeWhile(listt => !listt.SequenceEqual(list)).Count();
+            return (steps, index);
         }
     }
 }
