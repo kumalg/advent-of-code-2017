@@ -53,21 +53,21 @@ namespace AdventOfCode.Days {
         private static bool CheckIfSetContainsList(IEnumerable<int[]> set, int[] list) => set.Any(i => i.SequenceEqual(list));
 
         public static (int, int) CountSteps(IEnumerable<int> input) {
-            var list = input;
+            var state = input.ToArray();
             int steps = 0;
-            var receivedList = new List<int[]>();
+            var reachedStates = new List<int[]>();
 
             do {
-                receivedList.Add(list.ToArray());
-                var maxValue = list.Max();
-                var maxIndex = Array.IndexOf(list, maxValue);
-                list[maxIndex] = 0;
+                reachedStates.Add(state.ToArray());
+                var maxValue = state.Max();
+                var maxIndex = Array.IndexOf(state, maxValue);
+                state[maxIndex] = 0;
                 for (var i = 1; i <= maxValue; i++)
-                    list[(maxIndex + i) % list.Length]++;
+                    state[(maxIndex + i) % state.Length]++;
                 steps++;
-            } while (!CheckIfSetContainsList(receivedList, list));
+            } while (!CheckIfSetContainsList(reachedStates, state));
 
-            var index = receivedList.TakeWhile(listt => !listt.SequenceEqual(list)).Count();
+            var index = reachedStates.TakeWhile(array => !array.SequenceEqual(state)).Count();
             return (steps, index);
         }
     }
