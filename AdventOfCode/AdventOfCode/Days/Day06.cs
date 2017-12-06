@@ -50,15 +50,15 @@ namespace AdventOfCode.Days {
             Console.ReadKey();
         }
 
-        private static bool CheckIfSetContainsList(IEnumerable<IEnumerable<int>> set, IEnumerable<int> list) => set.Any(i => i.SequenceEqual(list));
+        private static bool CheckIfSetContainsList(IEnumerable<int[]> set, int[] list) => set.Any(i => i.SequenceEqual(list));
 
         public static (int, int) CountSteps(IEnumerable<int> input) {
-            var list = input.ToArray();
+            var list = input;
             int steps = 0;
-            var receivedList = new List<IEnumerable<int>>();
+            var receivedList = new List<int[]>();
 
             do {
-                receivedList.Add(list.ToList());
+                receivedList.Add(list.ToArray());
                 var maxValue = list.Max();
                 var maxIndex = Array.IndexOf(list, maxValue);
                 list[maxIndex] = 0;
