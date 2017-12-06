@@ -50,7 +50,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Days {
     public class Day02 {
-        public static void Run() {
+        private static void Main(string[] args) {
             var matrix = GetMatrix("../../Inputs/day02.txt");
             Console.WriteLine($" Part I: {Checksum.ComputeChecksumPartOne(matrix)}");
             Console.WriteLine($"Part II: {Checksum.ComputeChecksumPartTwo(matrix)}");

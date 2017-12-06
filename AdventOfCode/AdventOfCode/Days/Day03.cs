@@ -49,7 +49,7 @@ using System;
 
 namespace AdventOfCode.Days {
     public class Day03 {
-        public static void Run() {
+        private static void Main(string[] args) {
             Console.WriteLine($" Part I: {Spiral.CountSteps(277678)}");
             Console.WriteLine($"Part II: {Spiral.ComputeNextNumber(277678)}");
             Console.ReadKey();

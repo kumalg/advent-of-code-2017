@@ -46,7 +46,7 @@ Your puzzle answer was 23948711.
 
 namespace AdventOfCode.Days {
     public class Day05 {
-        public static void Run() {
+        private static void Main(string[] args) {
             var instructions = GetInstructions("../../Inputs/day05.txt");
 
             Console.WriteLine($" Part I: {CountStepsForOne(instructions).Key}");

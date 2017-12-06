@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AdventOfCode.Days.Day06</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,7 +54,6 @@
     <Compile Include="Days\Day04.cs" />
     <Compile Include="Days\Day06.cs" />
     <Compile Include="Days\Day05.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +66,7 @@
     <Content Include="Inputs\day02.txt" />
     <Content Include="Inputs\day04.txt" />
     <Content Include="Inputs\day05.txt" />
+    <Content Include="Inputs\day06.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

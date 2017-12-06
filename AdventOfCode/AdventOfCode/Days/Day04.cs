@@ -38,7 +38,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Days {
     public class Day04 {
-        public static void Run() {
+        private static void Main(string[] args) {
             var matrix = GetMatrix("../../Inputs/day04.txt");
             Console.WriteLine($" Part I: {Passphrase.CountValidPassphrasesForOne(matrix)}");
             Console.WriteLine($"Part II: {Passphrase.CountValidPassphrasesForTwo(matrix)}");

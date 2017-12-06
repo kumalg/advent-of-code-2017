@@ -47,7 +47,7 @@ using System.Linq;
 
 namespace AdventOfCode.Days {
     public class Day01 {
-        public static void Run() {
+        private static void Main(string[] args) {
             var array = GetArray("../../Inputs/day01.txt");
             Console.WriteLine($" Part I: {Captcha.ComputeCaptchaPartOne(array)}");
             Console.WriteLine($"Part II: {Captcha.ComputeCaptchaPartTwo(array)}");

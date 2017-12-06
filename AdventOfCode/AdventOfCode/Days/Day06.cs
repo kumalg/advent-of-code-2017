@@ -42,7 +42,7 @@ Your puzzle answer was 1086.
 
 namespace AdventOfCode.Days {
     public class Day06 {
-        public static void Run() {
+        private static void Main(string[] args) {
             var blocks = Regex.Split(File.ReadAllText("../../Inputs/day06.txt"), @"\t+").Select(int.Parse);
             var result = CountSteps(blocks);
             Console.WriteLine($" Part I: {result.Item1}");
