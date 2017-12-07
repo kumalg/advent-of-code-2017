@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AdventOfCode.Days.Day06</StartupObject>
+    <StartupObject>AdventOfCode.Days.Day20_2016</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,8 +52,10 @@
     <Compile Include="Days\Day02.cs" />
     <Compile Include="Days\Day03.cs" />
     <Compile Include="Days\Day04.cs" />
+    <Compile Include="Days\Day07.cs" />
     <Compile Include="Days\Day06.cs" />
     <Compile Include="Days\Day05.cs" />
+    <Compile Include="Days\Day20_2016.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
