@@ -6,7 +6,7 @@ using System.Linq;
 namespace AdventOfCode.Days {
     public class Day22 {
         private static void Main() {
-            var input = File.ReadAllText("../../Inputs/day22_example.txt")
+            var input = File.ReadAllText("../../Inputs/day22.txt")
                 .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Select((i, indexY) =>
                     i.ToCharArray()
@@ -15,7 +15,6 @@ namespace AdventOfCode.Days {
 
             Console.WriteLine($" Part I: {CountPartOne(input, 10000)}");
             Console.WriteLine($"Part II: {CountPartTwo(input, 10000000)}");
-            //Console.WriteLine($"Part II: {}");
 
             Console.ReadKey();
         }
@@ -50,107 +49,49 @@ namespace AdventOfCode.Days {
             return count;
         }
 
-        private static (int, int, Direction) TurnLeft(int x, int y, Direction direction) {
-            var newX = x;
-            var newY = y;
+        private static (int, int) Turn(int x, int y, Direction direction) {
             switch (direction) {
                 case Direction.Up: {
-                    newX--;
+                    y--;
                     break;
                 }
                 case Direction.Right: {
-                    newY--;
+                    x++;
                     break;
                 }
                 case Direction.Down: {
-                    newX++;
+                    y++;
                     break;
                 }
                 case Direction.Left: {
-                    newY++;
+                    x--;
                     break;
                 }
             }
+            return (x, y);
+        }
+
+        private static (int, int, Direction) TurnLeft(int x, int y, Direction direction) {
             var newDirection = direction == Direction.Up ? Direction.Left : (direction - 1);
-            return (newX, newY, newDirection);
+            var newPosition = Turn(x, y, newDirection);
+            return (newPosition.Item1, newPosition.Item2, newDirection);
         }
 
         private static (int, int, Direction) TurnRight(int x, int y, Direction direction) {
-            var newX = x;
-            var newY = y;
-            switch (direction) {
-                case Direction.Up: {
-                    newX++;
-                    break;
-                }
-                case Direction.Right: {
-                    newY++;
-                    break;
-                }
-                case Direction.Down: {
-                    newX--;
-                    break;
-                }
-                case Direction.Left: {
-                    newY--;
-                    break;
-                }
-            }
             var newDirection = direction == Direction.Left ? Direction.Up : (direction + 1);
-            return (newX, newY, newDirection);
+            var newPosition = Turn(x, y, newDirection);
+            return (newPosition.Item1, newPosition.Item2, newDirection);
         }
 
         private static (int, int, Direction) TurnStraight(int x, int y, Direction direction) {
-            var newX = x;
-            var newY = y;
-            switch (direction) {
-                case Direction.Up: {
-                    newY--;
-                    break;
-                }
-                case Direction.Right: {
-                    newX++;
-                    break;
-                }
-                case Direction.Down: {
-                    newY++;
-                    break;
-                }
-                case Direction.Left: {
-                    newX--;
-                    break;
-                }
-            }
-            return (newX, newY, direction);
+            var newPosition = Turn(x, y, direction);
+            return (newPosition.Item1, newPosition.Item2, direction);
         }
 
         private static (int, int, Direction) TurnBack(int x, int y, Direction direction) {
-            var newX = x;
-            var newY = y;
-            Direction newDirection = direction;
-            switch (direction) {
-                case Direction.Up: {
-                    newY++;
-                    newDirection = Direction.Down;
-                    break;
-                }
-                case Direction.Right: {
-                    newX--;
-                    newDirection = Direction.Left;
-                    break;
-                }
-                case Direction.Down: {
-                    newY--;
-                    newDirection = Direction.Up;
-                    break;
-                }
-                case Direction.Left: {
-                    newX++;
-                    newDirection = Direction.Right;
-                    break;
-                }
-            }
-            return (newX, newY, newDirection);
+            var newDirection = (Direction)((int)(direction + 2) % 4);
+            var newPosition = Turn(x, y, newDirection);
+            return (newPosition.Item1, newPosition.Item2, newDirection);
         }
 
         public static int CountPartTwo(Dictionary<(int, int), bool> input, int steps) {
@@ -167,7 +108,7 @@ namespace AdventOfCode.Days {
                     map.Add((actualX, actualY), 0);
 
                 var state = map[(actualX, actualY)];
-                if (state == 2)
+                if (state == 1)
                     count++;
                 map[(actualX, actualY)] = (state + 1) % 4;
 
@@ -177,7 +118,7 @@ namespace AdventOfCode.Days {
                 else if (state == 1)
                     change = TurnStraight(actualX, actualY, direction);
                 else if (state == 2)
-                    change = TurnLeft(actualX, actualY, direction);
+                    change = TurnRight(actualX, actualY, direction);
                 else
                     change = TurnBack(actualX, actualY, direction);
 
