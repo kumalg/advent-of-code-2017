@@ -28,7 +28,6 @@ namespace AdventOfCode.Days {
             var direction = Direction.Up;
 
             for (var step = 0; step < steps; step++) {
-
                 if (!map.ContainsKey((actualX, actualY)))
                     map.Add((actualX, actualY), false);
 
@@ -38,8 +37,8 @@ namespace AdventOfCode.Days {
                 map[(actualX, actualY)] = !infected;
 
                 var change = infected
-                    ? TurnRight(actualX, actualY, direction)
-                    : TurnLeft(actualX, actualY, direction);
+                    ? Turn(actualX, actualY, direction, Direction.Right)
+                    : Turn(actualX, actualY, direction, Direction.Left);
 
                 actualX = change.Item1;
                 actualY = change.Item2;
@@ -51,45 +50,40 @@ namespace AdventOfCode.Days {
 
         private static (int, int) Turn(int x, int y, Direction direction) {
             switch (direction) {
-                case Direction.Up: {
+                case Direction.Up:
                     y--;
                     break;
-                }
-                case Direction.Right: {
+                case Direction.Right:
                     x++;
                     break;
-                }
-                case Direction.Down: {
+                case Direction.Down:
                     y++;
                     break;
-                }
-                case Direction.Left: {
+                case Direction.Left:
                     x--;
                     break;
-                }
             }
             return (x, y);
         }
 
-        private static (int, int, Direction) TurnLeft(int x, int y, Direction direction) {
-            var newDirection = direction == Direction.Up ? Direction.Left : (direction - 1);
-            var newPosition = Turn(x, y, newDirection);
-            return (newPosition.Item1, newPosition.Item2, newDirection);
-        }
+        private static (int, int, Direction) Turn(int x, int y, Direction direction, Direction turnTo) {
+            Direction newDirection;
 
-        private static (int, int, Direction) TurnRight(int x, int y, Direction direction) {
-            var newDirection = direction == Direction.Left ? Direction.Up : (direction + 1);
-            var newPosition = Turn(x, y, newDirection);
-            return (newPosition.Item1, newPosition.Item2, newDirection);
-        }
+            switch (turnTo) {
+                case Direction.Up:
+                    newDirection = direction;
+                    break;
+                case Direction.Right:
+                    newDirection = direction == Direction.Left ? Direction.Up : (direction + 1);
+                    break;
+                case Direction.Down:
+                    newDirection = (Direction)((int)(direction + 2) % 4);
+                    break;
+                default:
+                    newDirection = direction == Direction.Up ? Direction.Left : (direction - 1);
+                    break;
+            }
 
-        private static (int, int, Direction) TurnStraight(int x, int y, Direction direction) {
-            var newPosition = Turn(x, y, direction);
-            return (newPosition.Item1, newPosition.Item2, direction);
-        }
-
-        private static (int, int, Direction) TurnBack(int x, int y, Direction direction) {
-            var newDirection = (Direction)((int)(direction + 2) % 4);
             var newPosition = Turn(x, y, newDirection);
             return (newPosition.Item1, newPosition.Item2, newDirection);
         }
@@ -103,7 +97,6 @@ namespace AdventOfCode.Days {
             var direction = Direction.Up;
 
             for (var step = 0; step < steps; step++) {
-
                 if (!map.ContainsKey((actualX, actualY)))
                     map.Add((actualX, actualY), 0);
 
@@ -112,15 +105,7 @@ namespace AdventOfCode.Days {
                     count++;
                 map[(actualX, actualY)] = (state + 1) % 4;
 
-                (int, int, Direction) change;
-                if (state == 0)
-                    change = TurnLeft(actualX, actualY, direction);
-                else if (state == 1)
-                    change = TurnStraight(actualX, actualY, direction);
-                else if (state == 2)
-                    change = TurnRight(actualX, actualY, direction);
-                else
-                    change = TurnBack(actualX, actualY, direction);
+                var change = Turn(actualX, actualY, direction, (Direction)((state - 1) % 4));
 
                 actualX = change.Item1;
                 actualY = change.Item2;
