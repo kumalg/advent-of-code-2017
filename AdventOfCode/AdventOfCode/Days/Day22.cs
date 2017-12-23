@@ -14,7 +14,11 @@ namespace AdventOfCode.Days {
                 .SelectMany(nodes => nodes).ToDictionary(node => node.Key, node => node.Value);
 
             Console.WriteLine($" Part I: {CountPartOne(input, 10000)}");
-            Console.WriteLine($"Part II: {CountPartTwo(input, 10000000)}");
+            var start = DateTime.Now.Ticks;
+            var partTwo = CountPartTwo(input, 10000000);
+            var end = DateTime.Now.Ticks;
+            var time = (end - start) / TimeSpan.TicksPerMillisecond;
+            Console.WriteLine($"Part II: {partTwo}  (Time: {time} ms)");
 
             Console.ReadKey();
         }
@@ -36,9 +40,34 @@ namespace AdventOfCode.Days {
                     count++;
                 map[(actualX, actualY)] = !infected;
 
-                var change = infected
-                    ? Turn(actualX, actualY, direction, Direction.Right)
-                    : Turn(actualX, actualY, direction, Direction.Left);
+                var change = Turn(actualX, actualY, direction, infected ? Direction.Right : Direction.Left);
+
+                actualX = change.Item1;
+                actualY = change.Item2;
+                direction = change.Item3;
+            }
+
+            return count;
+        }
+
+        public static int CountPartTwo(Dictionary<(int, int), bool> input, int steps) {
+            var map = input.ToDictionary(entry => entry.Key, entry => entry.Value ? 2 : 0);
+            var count = 0;
+
+            var actualX = (int)Math.Sqrt(map.Count) / 2;
+            var actualY = actualX;
+            var direction = Direction.Up;
+
+            for (var step = 0; step < steps; step++) {
+                if (!map.ContainsKey((actualX, actualY)))
+                    map.Add((actualX, actualY), 0);
+
+                var state = map[(actualX, actualY)];
+                if (state == 1)
+                    count++;
+                map[(actualX, actualY)] = (state + 1) % 4;
+
+                var change = Turn(actualX, actualY, direction, (Direction)((state - 1) % 4));
 
                 actualX = change.Item1;
                 actualY = change.Item2;
@@ -87,34 +116,7 @@ namespace AdventOfCode.Days {
             var newPosition = Turn(x, y, newDirection);
             return (newPosition.Item1, newPosition.Item2, newDirection);
         }
-
-        public static int CountPartTwo(Dictionary<(int, int), bool> input, int steps) {
-            var map = input.ToDictionary(entry => entry.Key, entry => entry.Value ? 2 : 0);
-            var count = 0;
-
-            var actualX = (int)Math.Sqrt(map.Count) / 2;
-            var actualY = actualX;
-            var direction = Direction.Up;
-
-            for (var step = 0; step < steps; step++) {
-                if (!map.ContainsKey((actualX, actualY)))
-                    map.Add((actualX, actualY), 0);
-
-                var state = map[(actualX, actualY)];
-                if (state == 1)
-                    count++;
-                map[(actualX, actualY)] = (state + 1) % 4;
-
-                var change = Turn(actualX, actualY, direction, (Direction)((state - 1) % 4));
-
-                actualX = change.Item1;
-                actualY = change.Item2;
-                direction = change.Item3;
-            }
-
-            return count;
-        }
-
+        
         public enum Direction {
             Up = 0,
             Right = 1,
