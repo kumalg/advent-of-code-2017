@@ -18,45 +18,52 @@ namespace AdventOfCode.Days {
 
         private static (int partOne, int partTwo) Compute(IEnumerable<IEnumerable<int>> componentsOriginal) {
             var components = componentsOriginal.ToList();
-            var permutations = new List<(int strength, int lastPins, int components)>();
+            var bridges = new List<Bridge>();
 
             var startComponents = components.Where(i => i.ElementAt(0) == 0);
 
             foreach (var startComponent in startComponents) {
-                var bridge = (startComponent.Sum(), startComponent.Last(), 1);
-                AddBridge(bridge, components.Where(i => !i.SequenceEqual(startComponent)).ToArray(), permutations);
+                var bridge = new Bridge {
+                    Strength = startComponent.Sum(),
+                    LastPins = startComponent.Last(),
+                    Components = 1
+                };
+                AddBridge(bridge, components.Where(i => !i.SequenceEqual(startComponent)).ToArray(), bridges);
             }
 
             return (
-                permutations.OrderByDescending(i => i.strength).First().strength,
-                permutations.OrderByDescending(i => i.components).ThenByDescending(i => i.strength).First().strength);
+                bridges.OrderByDescending(i => i.Strength).First().Strength,
+                bridges.OrderByDescending(i => i.Components).ThenByDescending(i => i.Strength).First().Strength);
         }
 
-        private static void AddBridge(
-            (int strength, int lastPins, int components) bridge, 
-            IEnumerable<IEnumerable<int>> components, 
-            ICollection<(int strength, int lastPins, int components)> permutations) {
-
-            permutations.Add(bridge);
+        private static void AddBridge(Bridge bridge, IEnumerable<IEnumerable<int>> components, ICollection<Bridge> bridges) {
+            bridges.Add(bridge);
 
             if (!components.Any())
                 return;
-            
-            var matchedComponents = components.Where(i => i.Contains(bridge.lastPins));
+
+            var matchedComponents = components.Where(i => i.Contains(bridge.LastPins));
 
             if (!matchedComponents.Any())
                 return;
 
             foreach (var matchedComponent in matchedComponents) {
-                var newBridge = bridge;
-                newBridge.strength += matchedComponent.Sum();
-                newBridge.components++;
-                newBridge.lastPins = newBridge.lastPins != matchedComponent.ElementAt(0)
-                    ? matchedComponent.Reverse().Last()
-                    : matchedComponent.Last();
+                var newBridge = new Bridge {
+                    Strength = bridge.Strength + matchedComponent.Sum(),
+                    Components = bridge.Components + 1,
+                    LastPins = bridge.LastPins != matchedComponent.ElementAt(0)
+                        ? matchedComponent.Reverse().Last()
+                        : matchedComponent.Last()
+                };
 
-                AddBridge(newBridge, components.Where(i => !i.SequenceEqual(matchedComponent)).ToArray(), permutations);
+                AddBridge(newBridge, components.Where(i => !i.SequenceEqual(matchedComponent)).ToArray(), bridges);
             }
+        }
+
+        public class Bridge {
+            public int Strength;
+            public int LastPins;
+            public int Components;
         }
     }
 }
