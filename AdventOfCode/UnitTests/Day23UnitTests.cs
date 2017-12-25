@@ -29,13 +29,13 @@ namespace UnitTests {
             Assert.AreEqual(result, shoulBe, $"result should be {shoulBe} but is {result}");
         }
 
-        [TestMethod]
-        public void GetValueOfNoRegister() {
-            const string register = "c";
-            const int shoulBe = 0;
-            var result = _registers.GetValue(register);
+        //[TestMethod]
+        //public void GetValueOfNoRegister() {
+        //    const string register = "c";
+        //    const int shoulBe = 0;
+        //    var result = _registers.GetValue(register);
 
-            Assert.AreEqual(result, shoulBe, $"result should be {shoulBe} but is {result}");
-        }
+        //    Assert.AreEqual(result, shoulBe, $"result should be {shoulBe} but is {result}");
+        //}
     }
 }

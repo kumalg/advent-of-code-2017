@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,9 +31,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AdventOfCode.Days.Day23</StartupObject>
+    <StartupObject>AdventOfCode.Days.Day19</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,6 +57,9 @@
     <Compile Include="Days\Day07.cs" />
     <Compile Include="Days\Day06.cs" />
     <Compile Include="Days\Day05.cs" />
+    <Compile Include="Days\Day20.cs" />
+    <Compile Include="Days\Day19.cs" />
+    <Compile Include="Days\Day24.cs" />
     <Compile Include="Days\Day23.cs" />
     <Compile Include="Days\Day22.cs" />
     <Compile Include="Days\Day11.cs" />
