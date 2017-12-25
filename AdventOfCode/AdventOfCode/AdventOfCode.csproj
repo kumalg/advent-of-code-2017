@@ -34,7 +34,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AdventOfCode.Days.Day24</StartupObject>
+    <StartupObject>AdventOfCode.Days.Day18</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -59,6 +59,8 @@
     <Compile Include="Days\Day05.cs" />
     <Compile Include="Days\Day20.cs" />
     <Compile Include="Days\Day19.cs" />
+    <Compile Include="Days\Day18.cs" />
+    <Compile Include="Days\Day25.cs" />
     <Compile Include="Days\Day24.cs" />
     <Compile Include="Days\Day23.cs" />
     <Compile Include="Days\Day22.cs" />

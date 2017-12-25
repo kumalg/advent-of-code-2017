@@ -10,9 +10,13 @@ namespace AdventOfCode.Days {
                 .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Select(i => i.Split('/').Select(int.Parse));
 
+            var start = DateTime.Now.Ticks;
             var result = Compute(components);
+            var end = DateTime.Now.Ticks;
+            var time = (end - start) / TimeSpan.TicksPerMillisecond;
             Console.WriteLine($" Part I: {result.partOne}");
             Console.WriteLine($"Part II: {result.partTwo}");
+            Console.WriteLine($"   Time: {time} ms");
             Console.ReadKey();
         }
 
@@ -37,15 +41,15 @@ namespace AdventOfCode.Days {
         }
 
         private static void AddBridge(Bridge bridge, IEnumerable<IEnumerable<int>> components, ICollection<Bridge> bridges) {
-            bridges.Add(bridge);
-
             if (!components.Any())
                 return;
 
             var matchedComponents = components.Where(i => i.Contains(bridge.LastPins));
 
-            if (!matchedComponents.Any())
+            if (!matchedComponents.Any()) {
+                bridges.Add(bridge);
                 return;
+            }
 
             foreach (var matchedComponent in matchedComponents) {
                 var newBridge = new Bridge {
