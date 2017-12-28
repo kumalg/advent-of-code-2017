@@ -8,9 +8,7 @@ namespace AdventOfCode.Days {
         private static void Main() {
             var input = File.ReadAllText("../../Inputs/day22.txt")
                 .Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                .Select((i, indexY) =>
-                    i.ToCharArray()
-                        .Select((c, indexX) => new KeyValuePair<(int, int), bool>((indexX, indexY), c == '#')))
+                .Select((row, y) => row.Select((c, x) => new KeyValuePair<(int x, int y), bool>((x, y), c == '#')))
                 .SelectMany(nodes => nodes).ToDictionary(node => node.Key, node => node.Value);
 
             Console.WriteLine($" Part I: {CountPartOne(input, 10000)}");
@@ -23,7 +21,7 @@ namespace AdventOfCode.Days {
             Console.ReadKey();
         }
 
-        public static int CountPartOne(Dictionary<(int, int), bool> input, int steps) {
+        public static int CountPartOne(Dictionary<(int x, int y), bool> input, int steps) {
             var map = input.ToDictionary(entry => entry.Key, entry => entry.Value);
             var count = 0;
 
@@ -42,9 +40,9 @@ namespace AdventOfCode.Days {
 
                 var change = Turn(actualX, actualY, direction, infected ? Direction.Right : Direction.Left);
 
-                actualX = change.Item1;
-                actualY = change.Item2;
-                direction = change.Item3;
+                actualX = change.x;
+                actualY = change.y;
+                direction = change.direction;
             }
 
             return count;
@@ -69,33 +67,27 @@ namespace AdventOfCode.Days {
 
                 var change = Turn(actualX, actualY, direction, (Direction)((state - 1) % 4));
 
-                actualX = change.Item1;
-                actualY = change.Item2;
-                direction = change.Item3;
+                actualX = change.x;
+                actualY = change.y;
+                direction = change.direction;
             }
 
             return count;
         }
 
-        private static (int, int) Turn(int x, int y, Direction direction) {
-            switch (direction) {
-                case Direction.Up:
-                    y--;
-                    break;
-                case Direction.Right:
-                    x++;
-                    break;
-                case Direction.Down:
-                    y++;
-                    break;
-                case Direction.Left:
-                    x--;
-                    break;
-            }
+        private static (int x, int y) Turn(int x, int y, Direction direction) {
+            if (direction == Direction.Up)
+                y--;
+            else if (direction == Direction.Right)
+                x++;
+            else if (direction == Direction.Down)
+                y++;
+            else if (direction == Direction.Left)
+                x--;
             return (x, y);
         }
 
-        private static (int, int, Direction) Turn(int x, int y, Direction direction, Direction turnTo) {
+        private static (int x, int y, Direction direction) Turn(int x, int y, Direction direction, Direction turnTo) {
             Direction newDirection;
 
             switch (turnTo) {
@@ -114,7 +106,7 @@ namespace AdventOfCode.Days {
             }
 
             var newPosition = Turn(x, y, newDirection);
-            return (newPosition.Item1, newPosition.Item2, newDirection);
+            return (newPosition.x, newPosition.y, newDirection);
         }
         
         public enum Direction {

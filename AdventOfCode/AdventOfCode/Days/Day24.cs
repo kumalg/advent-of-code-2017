@@ -60,7 +60,7 @@ namespace AdventOfCode.Days {
                         : matchedComponent.Last()
                 };
 
-                AddBridge(newBridge, components.Where(i => !i.SequenceEqual(matchedComponent)).ToArray(), bridges);
+                AddBridge(newBridge, components.Where(i => !i.SequenceEqual(matchedComponent)).ToList(), bridges);
             }
         }
 

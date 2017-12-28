@@ -38,7 +38,7 @@ namespace AdventOfCode.Days {
             return permutation;
         }
 
-        private static string GetHash(IEnumerable<int> lengths, int size) {
+        public static string GetHash(IEnumerable<int> lengths, int size) {
             var newLengths = lengths.Concat(new[] { 17, 31, 73, 47, 23 }).ToArray();
             var permutation = GetPermutation(newLengths, size, 64);
 

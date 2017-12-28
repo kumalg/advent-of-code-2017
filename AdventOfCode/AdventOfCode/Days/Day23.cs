@@ -27,24 +27,24 @@ namespace AdventOfCode.Days {
                 var actualInstriction = instructions.ElementAt(actualInstructionIndex);
                 var type = actualInstriction[0];
                 var register = actualInstriction[1];
-                var value = registers.GetValue(actualInstriction[2]);
+                var value = GetValue(registers, actualInstriction[2]);
                 switch (type) {
                     case "set":
-                        registers[register] = value;
-                        break;
+                    registers[register] = value;
+                    break;
                     case "sub":
-                        registers[register] -= value;
-                        break;
+                    registers[register] -= value;
+                    break;
                     case "mul":
-                        muls++;
-                        registers[register] *= value;
-                        break;
+                    muls++;
+                    registers[register] *= value;
+                    break;
                     case "jnz":
-                        if (registers.GetValue(register) != 0) {
-                            actualInstructionIndex += value;
-                            continue;
-                        }
-                        break;
+                    if (GetValue(registers, register) != 0) {
+                        actualInstructionIndex += value;
+                        continue;
+                    }
+                    break;
                 }
                 actualInstructionIndex++;
             }
@@ -61,36 +61,33 @@ namespace AdventOfCode.Days {
                 var actualInstriction = instructions.ElementAt(actualInstructionIndex);
                 var type = actualInstriction[0];
                 var register = actualInstriction[1];
-                var value = registers.GetValue(actualInstriction[2]);
+                var value = GetValue(registers, actualInstriction[2]);
                 switch (type) {
                     case "set":
-                        registers[register] = value;
-                        break;
+                    registers[register] = value;
+                    break;
                     case "sub":
-                        registers[register] -= value;
-                        break;
+                    registers[register] -= value;
+                    break;
                     case "mul":
-                        registers[register] *= value;
-                        break;
+                    registers[register] *= value;
+                    break;
                     case "jnz":
-                        if (registers.GetValue(register) != 0) {
-                            actualInstructionIndex += value;
-                            continue;
-                        }
-                        break;
+                    if (GetValue(registers, register) != 0) {
+                        actualInstructionIndex += value;
+                        continue;
+                    }
+                    break;
                 }
                 actualInstructionIndex++;
 
-                if(register == "h")
+                if (register == "h")
                     Console.WriteLine(registers["h"]);
             }
             Console.WriteLine("End");
             return registers["h"];
         }
-    }
-
-    public static class Registers {
-        public static int GetValue(this Dictionary<string, int> registers, string register) {
+        public static int GetValue(Dictionary<string, int> registers, string register) {
             var isNumeric = int.TryParse(register, out var n);
             return isNumeric ? n : registers[register];
         }
