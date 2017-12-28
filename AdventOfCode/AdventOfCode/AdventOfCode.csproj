@@ -34,10 +34,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AdventOfCode.Days.Day16</StartupObject>
+    <StartupObject>AdventOfCode.Days.Day17</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Core" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
@@ -57,6 +58,7 @@
     <Compile Include="Days\Day07.cs" />
     <Compile Include="Days\Day06.cs" />
     <Compile Include="Days\Day05.cs" />
+    <Compile Include="Days\Day17.cs" />
     <Compile Include="Days\Day16.cs" />
     <Compile Include="Days\Day15.cs" />
     <Compile Include="Days\Day14.cs" />
@@ -87,6 +89,32 @@
     <Content Include="Inputs\day04.txt" />
     <Content Include="Inputs\day05.txt" />
     <Content Include="Inputs\day06.txt" />
+    <Content Include="Inputs\day07.txt" />
+    <Content Include="Inputs\day07_example.txt" />
+    <Content Include="Inputs\day08.txt" />
+    <Content Include="Inputs\day09.txt" />
+    <Content Include="Inputs\day10.txt" />
+    <Content Include="Inputs\day11.txt" />
+    <Content Include="Inputs\day12.txt" />
+    <Content Include="Inputs\day13.txt" />
+    <Content Include="Inputs\day13_example.txt" />
+    <Content Include="Inputs\day16.txt" />
+    <Content Include="Inputs\day16_optimized.txt" />
+    <Content Include="Inputs\day18.txt" />
+    <Content Include="Inputs\day18_example.txt" />
+    <Content Include="Inputs\day18_example2.txt" />
+    <Content Include="Inputs\day19.txt" />
+    <Content Include="Inputs\day19_example.txt" />
+    <Content Include="Inputs\day20.txt" />
+    <Content Include="Inputs\day20_2016.txt" />
+    <Content Include="Inputs\day20_example.txt" />
+    <Content Include="Inputs\day20_example2.txt" />
+    <Content Include="Inputs\day22.txt" />
+    <Content Include="Inputs\day22_example.txt" />
+    <Content Include="Inputs\day23.txt" />
+    <Content Include="Inputs\day24.txt" />
+    <Content Include="Inputs\day24_example.txt" />
+    <Content Include="Inputs\day25.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
