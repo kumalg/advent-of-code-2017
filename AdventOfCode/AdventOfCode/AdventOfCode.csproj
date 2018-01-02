@@ -34,7 +34,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AdventOfCode.Days.Day14</StartupObject>
+    <StartupObject>AdventOfCode.Days.Day23</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
